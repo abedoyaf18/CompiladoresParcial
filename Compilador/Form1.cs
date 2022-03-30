@@ -1,4 +1,5 @@
-﻿using CompiladorClase.AnalisisLexico;
+﻿using Compilador.AnalisisLexico;
+using CompiladorClase.AnalisisLexico;
 using CompiladorClase.Cache;
 using CompiladorClase.Trasnversal;
 using System;
@@ -82,6 +83,26 @@ namespace Compilador
                 componente = analisador.devolderSiguienteComponente();
             }
         }
+        private void latinoButton_Click(object sender, EventArgs e)
+        {
+            ProgramaFuente cache = ProgramaFuente.obtenerProgramaFuente();
+
+            txtConsole.Text = String.Empty;
+            procesarTexto();
+            foreach (Linea linea in cache.obtenerLineas())
+            {
+                txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
+            }
+            AnalizadorLexicoLatino analisador = AnalizadorLexicoLatino.crear();
+            ComponenteLexico componente = analisador.devolderSiguienteComponente();
+
+            while (!CategoriaGramatical.FIN_ARCHIVO.Equals(componente.obtenerCategoria()))
+            {
+                MessageBox.Show(componente.formarComponente());
+
+                componente = analisador.devolderSiguienteComponente();
+            }
+        }
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -126,6 +147,8 @@ namespace Compilador
         {
 
         }
+
+       
     }
     public static class WinFormsExtensions
     {

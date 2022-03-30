@@ -88,6 +88,11 @@ namespace CompiladorClase.AnalisisLexico
         {
             return esIgual(CategoriaGramatical.FIN_LINEA, caracterActual);
         }
+
+        private bool esFinArchivo()
+        {
+            return esIgual(CategoriaGramatical.FIN_ARCHIVO, caracterActual);
+        }
         private bool esComa()
         {
             return ",".Equals(caracterActual);
@@ -156,54 +161,7 @@ namespace CompiladorClase.AnalisisLexico
             bool continuarAnalisis=true;
             while (continuarAnalisis)
             {
-                if (estadoactual == 0)
-                {
-                    leerSiguienteCaracter();
-                    if (esCaracter())
-                    {
-                        estadoactual = 1;
-                        lexema = caracterActual;
-                    }
-                    else if (esFinLinea())
-                    {
-                        estadoactual = 3;
-                        lexema = caracterActual;
-                    }
-                    else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
-                    {
-                        estadoactual = 4;
-                    }
-                    else
-                    {
-                        estadoactual = 2;
-                    }
-                }
-                else if (estadoactual == 1)
-                {
-                    continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.CODIGO, lexema);
-                }
-                else if (estadoactual == 2)
-                {
-                    throw new Exception("Caracter no valido");
-                }
-                else if (estadoactual == 3)
-                {
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_LINEA, lexema);
-                    cargarNuevaLinea();
-                    continuarAnalisis = false; 
-
-                }
-                else if (estadoactual == 4)
-                {
-                    continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_ARCHIVO, lexema);
-                }
-                
-
-                //----------------------------------------------------------------------------------------------------------------------
-
-                else if(estadoactual == 0)
+                if(estadoactual == 0)
                 {
                     leerSiguienteCaracter();
                     if (esPunto())
@@ -222,11 +180,16 @@ namespace CompiladorClase.AnalisisLexico
                     }
                     else if (esDivision())
                     {
+                        lexema = lexema + caracterActual;
                         estadoactual = 130;
                     }
                     else if (esFinLinea())
                     {
                         estadoactual = 131;
+                    }
+                    else if (esFinArchivo())
+                    {
+                        estadoactual = 132;
                     }
                     else
                     {
@@ -247,15 +210,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 3;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 15;
-                    }
-                    else if (esDivision())
-                    {
-                        estadoactual = 15;
-                    }
-                    else if (esFinLinea())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 15;
                     }
@@ -278,11 +233,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 20;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 45;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 45;
                     }
@@ -306,11 +257,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 32;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 4;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 4;
                     }
@@ -340,11 +287,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 6;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 36;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 36;
                     }
@@ -368,11 +311,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 7;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 14;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 14;
                     }
@@ -395,19 +334,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 79;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 8;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 8;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 8)
                 {
@@ -435,11 +369,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 99;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 12;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 12;
                     }
@@ -458,7 +388,7 @@ namespace CompiladorClase.AnalisisLexico
                 else if (estadoactual == 13)
                 {
                     leerSiguienteCaracter();
-                    if (esBlanco())
+                    if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 10;
                     }
@@ -495,19 +425,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 23;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 26;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 26;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                    } 
                 }
                 else if (estadoactual == 17)
                 {
@@ -522,19 +447,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 18;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 46;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 46;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 18)
                 {
@@ -549,11 +469,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 59;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 19;
-                    }
-                    else if (esDivision())
+                   else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 19;
                     }
@@ -582,19 +498,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 21;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 35;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 35;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 21)
                 {
@@ -609,19 +520,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 55;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 22;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 22;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 22)
                 {
@@ -643,11 +549,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 24;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 44;
-                    }
-                    else if (esDivision())
+                   else  if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 44;
                     }
@@ -670,19 +572,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 77;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 25;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 25;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 25)
                 {
@@ -709,19 +606,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 39;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 49;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 49;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 28)
                 {
@@ -731,11 +623,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 68;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 29;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 29;
                     }
@@ -754,11 +642,7 @@ namespace CompiladorClase.AnalisisLexico
                 else if (estadoactual == 30)
                 {
                     leerSiguienteCaracter();
-                    if (esBlanco())
-                    {
-                        estadoactual = 9;
-                    }
-                    else if (esDivision())
+                    if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 9;
                     }
@@ -787,19 +671,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 33;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 43;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 43;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 33)
                 {
@@ -814,11 +693,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 13;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 34;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 34;
                     }
@@ -860,19 +735,14 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 36;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 38;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 38;
                     }
                     else
                     {
                         estadoactual = 1000;
-                        //Estado de error para caracteres que no existen
-                    }
+                     }
                 }
                 else if (estadoactual == 38)
                 {
@@ -888,11 +758,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 57;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 40;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 40;
                     }
@@ -916,11 +782,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 61;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 42;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 42;
                     }
@@ -974,11 +836,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 120;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 48;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 48;
                     }
@@ -1008,11 +866,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 102;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 51;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 51;
                     }
@@ -1041,11 +895,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 11;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 31;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 31;
                     }
@@ -1063,11 +913,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 104;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 54;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 54;
                     }
@@ -1096,11 +942,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 81;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 56;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 56;
                     }
@@ -1124,11 +966,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 124;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 58;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 58;
                     }
@@ -1147,11 +985,7 @@ namespace CompiladorClase.AnalisisLexico
                 else if (estadoactual == 59)
                 {
                     leerSiguienteCaracter();
-                    if (esBlanco())
-                    {
-                        estadoactual = 60;
-                    }
-                    else if (esDivision())
+                    if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 60;
                     }
@@ -1170,11 +1004,7 @@ namespace CompiladorClase.AnalisisLexico
                 else if (estadoactual == 61)
                 {
                     leerSiguienteCaracter();
-                    if (esBlanco())
-                    {
-                        estadoactual = 62;
-                    }
-                    else if (esDivision())
+                    if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 62;
                     }
@@ -1198,11 +1028,7 @@ namespace CompiladorClase.AnalisisLexico
                         estadoactual = 83;
                         lexema = lexema + caracterActual;
                     }
-                    else if (esBlanco())
-                    {
-                        estadoactual = 64;
-                    }
-                    else if (esDivision())
+                    else if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 64;
                     }
@@ -1239,11 +1065,7 @@ namespace CompiladorClase.AnalisisLexico
                 else if (estadoactual == 66)
                 {
                     leerSiguienteCaracter();
-                    if (esBlanco())
-                    {
-                        estadoactual = 67;
-                    }
-                    else if (esDivision())
+                    if (esBlanco() || esDivision() || esFinLinea())
                     {
                         estadoactual = 67;
                     }
@@ -1928,7 +1750,6 @@ namespace CompiladorClase.AnalisisLexico
                 else if (estadoactual == 130)
                 {
                     continuarAnalisis = false;
-                    devolverPuntero();
                     retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.CODIGO, lexema);
                 }
                 else if (estadoactual == 131)

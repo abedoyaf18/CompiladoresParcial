@@ -61,3 +61,19 @@ C:\Users\Alexander\OneDrive - UCO\Compiladores\Compilador\Compiladores\Compilado
 C:\Users\Alexander\OneDrive - UCO\Compiladores\Compilador\Compiladores\Compilador\obj\Debug\netcoreapp3.1\Compilador.dll
 C:\Users\Alexander\OneDrive - UCO\Compiladores\Compilador\Compiladores\Compilador\obj\Debug\netcoreapp3.1\Compilador.pdb
 C:\Users\Alexander\OneDrive - UCO\Compiladores\Compilador\Compiladores\Compilador\obj\Debug\netcoreapp3.1\Compilador.genruntimeconfig.cache
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\bin\Debug\netcoreapp3.1\Compilador.exe
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\bin\Debug\netcoreapp3.1\Compilador.deps.json
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\bin\Debug\netcoreapp3.1\Compilador.runtimeconfig.json
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\bin\Debug\netcoreapp3.1\Compilador.runtimeconfig.dev.json
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\bin\Debug\netcoreapp3.1\Compilador.dll
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\bin\Debug\netcoreapp3.1\Compilador.pdb
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.AssemblyReference.cache
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.Form1.resources
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.GenerateResource.cache
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.GeneratedMSBuildEditorConfig.editorconfig
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.AssemblyInfoInputs.cache
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.AssemblyInfo.cs
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.csproj.CoreCompileInputs.cache
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.dll
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.pdb
+C:\clases UCO\2022-1\compiladores\CompiladoresParcial\Compilador\obj\Debug\netcoreapp3.1\Compilador.genruntimeconfig.cache

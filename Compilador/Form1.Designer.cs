@@ -38,6 +38,7 @@ namespace Compilador
             this.txtConsole = new System.Windows.Forms.TextBox();
             this.rbtnText = new System.Windows.Forms.RadioButton();
             this.rbtnFile = new System.Windows.Forms.RadioButton();
+            this.latinoButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -96,7 +97,7 @@ namespace Compilador
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(94, 29);
             this.btnProcess.TabIndex = 2;
-            this.btnProcess.Text = "Procesar";
+            this.btnProcess.Text = "morse";
             this.btnProcess.UseVisualStyleBackColor = true;
             this.btnProcess.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -134,11 +135,22 @@ namespace Compilador
             this.rbtnFile.UseVisualStyleBackColor = true;
             this.rbtnFile.CheckedChanged += new System.EventHandler(this.rbtnFile_CheckedChanged);
             // 
+            // latinoButton
+            // 
+            this.latinoButton.Location = new System.Drawing.Point(277, 507);
+            this.latinoButton.Name = "latinoButton";
+            this.latinoButton.Size = new System.Drawing.Size(94, 29);
+            this.latinoButton.TabIndex = 16;
+            this.latinoButton.Text = "latino";
+            this.latinoButton.UseVisualStyleBackColor = true;
+            this.latinoButton.Click += new System.EventHandler(this.latinoButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 869);
+            this.Controls.Add(this.latinoButton);
             this.Controls.Add(this.rbtnFile);
             this.Controls.Add(this.rbtnText);
             this.Controls.Add(this.btnProcess);
@@ -167,6 +179,7 @@ namespace Compilador
         private System.Windows.Forms.RadioButton rbtnText;
         private System.Windows.Forms.RadioButton rbtnFile;
         private System.Windows.Forms.TextBox txtLines;
+        private System.Windows.Forms.Button latinoButton;
     }
 }
 
