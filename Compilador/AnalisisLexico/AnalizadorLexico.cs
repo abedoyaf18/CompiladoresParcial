@@ -1764,8 +1764,19 @@ namespace CompiladorClase.AnalisisLexico
                 }
                 else if (estadoactual == 1000)
                 {
+                    while (true)
+                    {
+                        leerSiguienteCaracter();
+                        if (esDivision() || esBlanco() || esFinLinea()||esFinArchivo())
+                        {
+                            devolverPuntero();
+                            break;
+                        }
+
+                        lexema = lexema + caracterActual;
+                    }
                     continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.NUMERAL, lexema);
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length-1, apuntador - 1, CategoriaGramatical.NUMERAL, lexema);
                 }
 
 

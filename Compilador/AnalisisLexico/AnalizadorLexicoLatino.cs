@@ -136,10 +136,10 @@ namespace Compilador.AnalisisLexico
 
         private bool esCaracter()
         {
-            if (esLetra() || esDigito() || esComa() || esSuma() || esResta() || esParentecisAbre() || esParentecisCierra() || esDiferente() || caracterActual.Equals(" ")
+            if (esLetra() || esDigito() || esComa() || esSuma() || esResta() ||esGuion()||esGuionBajo() ||esParentecisAbre() || esParentecisCierra() || esDiferente() ||esPunto()|| caracterActual.Equals(" ")
                 || caracterActual.Equals("?") || caracterActual.Equals("'") || caracterActual.Equals("&") || caracterActual.Equals(":") ||
-                caracterActual.Equals(";") || caracterActual.Equals(" Revisar  '' ") || caracterActual.Equals("$") || caracterActual.Equals("@") ||
-                caracterActual.Equals("¿") || caracterActual.Equals("¡"))
+                caracterActual.Equals(";") || caracterActual.Equals("¡") || caracterActual.Equals("$") || caracterActual.Equals("@") ||
+                caracterActual.Equals("¿") || caracterActual.Equals("¡")||caracterActual.Equals('"'))
             {
                 return true;
             }
