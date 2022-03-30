@@ -1,0 +1,1263 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using CompiladorClase.Cache;
+using CompiladorClase.Trasnversal;
+
+namespace CompiladorClase.AnalisisLexico
+{
+    class AnalizadorLexico
+    {
+        private int numeroLineaActual;
+        private int apuntador;
+        private String caracterActual;
+        private String contenidoLineaActual;
+        private AnalizadorLexico()
+        {
+            cargarNuevaLinea();
+        }
+
+        public static AnalizadorLexico crear()
+        {
+            return new AnalizadorLexico();
+        }
+
+        private void cargarNuevaLinea()
+        {
+            numeroLineaActual += 1;
+            Linea lineaActual = ProgramaFuente.obtenerProgramaFuente().obtenerLinea(numeroLineaActual);
+            contenidoLineaActual = lineaActual.obtenerContenido();
+            numeroLineaActual = lineaActual.obtenerNumeroLinea();
+            apuntador = 1;
+        }
+
+        private void leerSiguienteCaracter()
+        {
+
+            if (CategoriaGramatical.FIN_ARCHIVO.Equals(contenidoLineaActual))
+            {
+                caracterActual = CategoriaGramatical.FIN_ARCHIVO;
+            }
+            else if (apuntador > contenidoLineaActual.Length)
+            {
+                caracterActual = CategoriaGramatical.FIN_LINEA;
+                apuntador++;
+            }
+            else
+            {
+                caracterActual = contenidoLineaActual.Substring(apuntador - 1, 1);
+                apuntador++;
+            }
+        }
+        private void devolverPuntero()
+        {
+            apuntador--;
+        }
+
+        private bool esIgual(String cadena,String cadena2)
+        {
+            if (cadena == null && cadena2 == null)
+            {
+                return true;
+            }
+            else if (cadena == null)
+            {
+                return false;
+            }
+            return cadena.Equals(cadena2);
+        }
+        private bool esLetra()
+        {
+            return Char.IsLetter(caracterActual.ToCharArray()[0]);
+        }
+        private bool esDigito()
+        {
+            return Char.IsDigit(caracterActual.ToCharArray()[0]);
+        }
+        private bool esPesos()
+        {
+            return "$".Equals(caracterActual);
+        }
+
+        private bool esGuionBajo()
+        {
+            return "_".Equals(caracterActual);
+        }
+
+        private bool esFinLinea()
+        {
+            return esIgual(CategoriaGramatical.FIN_LINEA, caracterActual);
+        }
+        private bool esComa()
+        {
+            return ",".Equals(caracterActual);
+        }
+        private bool esSuma()
+        {
+            return "+".Equals(caracterActual);
+        }
+        private bool esResta()
+        {
+            return "-".Equals(caracterActual);
+        }
+        private bool esDivision()
+        {
+            return "/".Equals(caracterActual);
+        }
+        private bool esParentecisAbre()
+        {
+            return "(".Equals(caracterActual);
+        }
+        private bool esParentecisCierra()
+        {
+            return ")".Equals(caracterActual);
+        }
+        private bool esIgual()
+        {
+            return "=".Equals(caracterActual);
+        }
+
+        private bool esDiferente()
+        {
+            return "!".Equals(caracterActual);
+        }
+        private bool esPunto()
+        {
+            return ".".Equals(caracterActual);
+        }
+        private bool esBlanco()
+        {
+            return " ".Equals(caracterActual);
+        }
+        private bool esGuion()
+        {
+            return "-".Equals(caracterActual);
+        }
+
+        private bool esCaracter()
+        {
+            if(esLetra()|| esDigito()|| esComa()||esSuma()||esResta()||esParentecisAbre()||esParentecisCierra()|| esDiferente() ||caracterActual.Equals(" ") 
+                || caracterActual.Equals("?") || caracterActual.Equals("'") || caracterActual.Equals("&") || caracterActual.Equals(":") || 
+                caracterActual.Equals(";") || caracterActual.Equals(" Revisar  '' ") || caracterActual.Equals("$") || caracterActual.Equals("@") ||
+                caracterActual.Equals("¿")|| caracterActual.Equals("¡"))
+            {
+                return true; 
+            }
+            return false;
+            
+        }
+
+
+        public ComponenteLexico devolderSiguienteComponente()
+        {
+            ComponenteLexico retorno= null;
+            int estadoactual = 0;
+            string lexema = "";
+            bool continuarAnalisis=true;
+            while (continuarAnalisis)
+            {
+                if (estadoactual == 0)
+                {
+                    leerSiguienteCaracter();
+                    if (esCaracter())
+                    {
+                        estadoactual = 1;
+                        lexema = caracterActual;
+                    }
+                    else if (esFinLinea())
+                    {
+                        estadoactual = 3;
+                        lexema = caracterActual;
+                    }
+                    else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
+                    {
+                        estadoactual = 4;
+                    }
+                    else
+                    {
+                        estadoactual = 2;
+                    }
+                }
+                else if (estadoactual == 1)
+                {
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 2)
+                {
+                    throw new Exception("Caracter no valido");
+                }
+                else if (estadoactual == 3)
+                {
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_LINEA, lexema);
+                    cargarNuevaLinea();
+                    continuarAnalisis = false; 
+
+                }
+                else if (estadoactual == 4)
+                {
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_ARCHIVO, lexema);
+                }
+                
+
+                //----------------------------------------------------------------------------------------------------------------------
+
+                else if(estadoactual == 0)
+                {
+                    leerSiguienteCaracter();
+                    if (esPunto())
+                    {
+                        estadoactual = 1;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esGuion())
+                    {
+                        estadoactual = 2;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if(esBlanco())
+                    {
+                        estadoactual = 0;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 130;
+                    }
+                    else if (esFinLinea())
+                    {
+                        estadoactual = 131;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 1)
+                {
+                    leerSiguienteCaracter();
+                    if (esPunto())
+                    {
+                        estadoactual = 16;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esGuion())
+                    {
+                        estadoactual = 3;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 15;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 15;
+                    }
+                    else if (esFinLinea())
+                    {
+                        estadoactual = 15;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 2)
+                {
+                    leerSiguienteCaracter();
+                    if (esPunto())
+                    {
+                        estadoactual = 5;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esGuion())
+                    {
+                        estadoactual = 20;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 45;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 45;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+
+                }
+                else if (estadoactual == 3)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 27;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 32;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 4;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 4;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+
+                }
+                else if (estadoactual == 4)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.IDENTIFICADOR, lexema);
+                }
+                else if (estadoactual == 5)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 52;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 6;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 36;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 36;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+
+                }
+                else if (estadoactual == 6)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 50;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 7;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 14;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 14;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 7)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 110;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 79;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 8;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 8;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 8)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 9)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 10)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 11)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 99;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 12;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 12;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 12)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 13)
+                {
+                    leerSiguienteCaracter();
+                    if (esBlanco())
+                    {
+                        estadoactual = 10;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+
+                }
+                else if (estadoactual == 14)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+
+                }
+                else if (estadoactual == 15)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 16)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 17;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 23;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 26;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 26;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 17)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 70;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 18;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 46;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 46;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 18)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 126;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 59;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 19;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 19;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 19)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 20)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 37;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 21;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 35;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 35;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 21)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 41;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 55;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 22;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 22;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 22)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+
+                }
+                else if (estadoactual == 23)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 47;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 24;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 44;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 44;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 24)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 75;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 77;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 25;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 25;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 25)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 26)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 27)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 28;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 39;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 49;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 49;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 28)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 68;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 29;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 29;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 29)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 30)
+                {
+                    leerSiguienteCaracter();
+                    if (esBlanco())
+                    {
+                        estadoactual = 9;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 9;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 31)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 32)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 87;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 33;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 43;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 43;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 33)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 117;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 13;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 34;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 34;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 34)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 35)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+
+                }
+                else if (estadoactual == 36)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 37)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 65;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 36;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 38;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 38;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 38)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 39)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 57;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 40;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 40;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 40)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 41)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 61;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 42;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 42;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 42)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 43)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 44)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 45)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+
+                }
+                else if (estadoactual == 46)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 47)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 73;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 120;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 48;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 48;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 48)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 49)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 50)
+                {
+                    leerSiguienteCaracter();
+                    if (esPunto())
+                    {
+                        estadoactual = 102;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 51;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 51;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 51)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 52)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 53;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 11;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 31;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 31;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 53)
+                {
+                    leerSiguienteCaracter();
+                    if (esPunto())
+                    {
+                        estadoactual = 104;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 54;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 54;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 54)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 55)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 91;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 81;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 56;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 56;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 56)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 57)
+                {
+                    leerSiguienteCaracter();
+                    if (esPunto())
+                    {
+                        estadoactual = 124;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 58;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 58;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 58)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 59)
+                {
+                    leerSiguienteCaracter();
+                    if (esBlanco())
+                    {
+                        estadoactual = 60;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 60;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 60)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 61)
+                {
+                    leerSiguienteCaracter();
+                    if (esBlanco())
+                    {
+                        estadoactual = 62;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 62;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 62)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 63)
+                {
+                    leerSiguienteCaracter();
+                    if (esPunto())
+                    {
+                        estadoactual = 83;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 64;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 64;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 64)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.ASIGNAION, lexema);
+                }
+                else if (estadoactual == 65)
+                {
+                    leerSiguienteCaracter();
+                    if (esGuion())
+                    {
+                        estadoactual = 66;
+                        lexema = lexema + caracterActual;
+                    }
+                    else if (esPunto())
+                    {
+                        estadoactual = 85;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                else if (estadoactual == 66)
+                {
+                    leerSiguienteCaracter();
+                    if (esBlanco())
+                    {
+                        estadoactual = 67;
+                    }
+                    else if (esDivision())
+                    {
+                        estadoactual = 67;
+                    }
+                    else
+                    {
+                        estadoactual = 1000;
+                        //Estado de error para caracteres que no existen
+                    }
+                }
+                
+
+
+            }
+            return retorno;
+        }
+    }
+}
