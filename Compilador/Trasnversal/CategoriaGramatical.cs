@@ -10,7 +10,7 @@ namespace CompiladorClase.Trasnversal
         public static string FIN_LINEA = "@FL@";
         public static string CODIGO = "CODIGO";
         public static string NUMERAL = "#";
-
+        public static string CARACTER = "CARACTER";
         public static string IDENTIFICADOR = "IDENTIFICADOR";
         public static string DECIMAL = "DECIMAL";
         public static string ENTERO = "ENTERO";

@@ -136,8 +136,8 @@ namespace Compilador.AnalisisLexico
 
         private bool esCaracter()
         {
-            if (esLetra() || esDigito() || esComa() || esSuma() || esResta() ||esGuion()||esGuionBajo() ||esParentecisAbre() || esParentecisCierra() || esDiferente() ||esPunto()|| caracterActual.Equals(" ")
-                || caracterActual.Equals("?") || caracterActual.Equals("'") || caracterActual.Equals("&") || caracterActual.Equals(":") ||
+            if (esLetra() || esDigito() || esComa() || esSuma() || esResta() ||esGuion()||esGuionBajo() ||esParentecisAbre() || esParentecisCierra() || esDiferente() ||esPunto()|| 
+                 caracterActual.Equals("?") || caracterActual.Equals("'") || caracterActual.Equals("&") || caracterActual.Equals(":") ||
                 caracterActual.Equals(";") || caracterActual.Equals("¡") || caracterActual.Equals("$") || caracterActual.Equals("@") ||
                 caracterActual.Equals("¿") || caracterActual.Equals("¡")||caracterActual.Equals('"'))
             {
@@ -163,6 +163,11 @@ namespace Compilador.AnalisisLexico
                         estadoactual = 1;
                         lexema = caracterActual;
                     }
+                    else if (esBlanco())
+                    {
+                        estadoactual = 5;
+                        lexema = caracterActual;
+                    }
                     else if (esFinLinea())
                     {
                         estadoactual = 3;
@@ -180,7 +185,7 @@ namespace Compilador.AnalisisLexico
                 else if (estadoactual == 1)
                 {
                     continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.CODIGO, lexema);
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.CARACTER, lexema);
                 }
                 else if (estadoactual == 2)
                 {
@@ -188,6 +193,7 @@ namespace Compilador.AnalisisLexico
                 }
                 else if (estadoactual == 3)
                 {
+                    
                     retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_LINEA, lexema);
                     cargarNuevaLinea();
                     continuarAnalisis = false;
@@ -198,8 +204,22 @@ namespace Compilador.AnalisisLexico
                     continuarAnalisis = false;
                     retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_ARCHIVO, lexema);
                 }
+                else if(estadoactual == 5)
+                {
+                    leerSiguienteCaracter();
+                    if (esBlanco())
+                    {
+                        estadoactual = 5;
+                    }
+                    else
+                    {
+                        continuarAnalisis = false;
+                        devolverPuntero();
+                        retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.BLANCO, lexema);
 
+                    }
 
+                }
             }
             return retorno;
 

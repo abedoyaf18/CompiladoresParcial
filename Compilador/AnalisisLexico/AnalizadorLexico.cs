@@ -272,7 +272,7 @@ namespace CompiladorClase.AnalisisLexico
                 {
                     continuarAnalisis = false;
                     devolverPuntero();
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.IDENTIFICADOR, lexema);
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.CODIGO, lexema);
                 }
                 else if (estadoactual == 5)
                 {
@@ -1776,7 +1776,7 @@ namespace CompiladorClase.AnalisisLexico
                         lexema = lexema + caracterActual;
                     }
                     continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length-1, apuntador - 1, CategoriaGramatical.NUMERAL, lexema);
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length-1, apuntador - 1, CategoriaGramatical.NUMERAL, "#");
                 }
 
 
