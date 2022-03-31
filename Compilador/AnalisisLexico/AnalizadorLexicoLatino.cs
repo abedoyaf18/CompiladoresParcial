@@ -136,9 +136,9 @@ namespace Compilador.AnalisisLexico
 
         private bool esCaracter()
         {
-            if (esLetra() || esDigito() || esComa() || esSuma() || esResta() ||esGuion()||esGuionBajo() ||esParentecisAbre() || esParentecisCierra() || esDiferente() ||esPunto()|| 
+            if (esLetra() || esDigito() || esComa() || esDivision()|| esSuma() || esResta() ||esGuion()||esGuionBajo() ||esParentecisAbre() || esParentecisCierra() || esDiferente() ||esPunto()|| 
                  caracterActual.Equals("?") || caracterActual.Equals("'") || caracterActual.Equals("&") || caracterActual.Equals(":") ||
-                caracterActual.Equals(";") || caracterActual.Equals("¡") || caracterActual.Equals("$") || caracterActual.Equals("@") ||
+                caracterActual.Equals(";") || caracterActual.Equals("¡") || esPesos() || caracterActual.Equals("@") ||
                 caracterActual.Equals("¿") || caracterActual.Equals("¡")||caracterActual.Equals('"'))
             {
                 return true;

@@ -66,23 +66,7 @@ namespace CompiladorClase.AnalisisLexico
             }
             return cadena.Equals(cadena2);
         }
-        private bool esLetra()
-        {
-            return Char.IsLetter(caracterActual.ToCharArray()[0]);
-        }
-        private bool esDigito()
-        {
-            return Char.IsDigit(caracterActual.ToCharArray()[0]);
-        }
-        private bool esPesos()
-        {
-            return "$".Equals(caracterActual);
-        }
-
-        private bool esGuionBajo()
-        {
-            return "_".Equals(caracterActual);
-        }
+        
 
         private bool esFinLinea()
         {
@@ -93,39 +77,12 @@ namespace CompiladorClase.AnalisisLexico
         {
             return esIgual(CategoriaGramatical.FIN_ARCHIVO, caracterActual);
         }
-        private bool esComa()
-        {
-            return ",".Equals(caracterActual);
-        }
-        private bool esSuma()
-        {
-            return "+".Equals(caracterActual);
-        }
-        private bool esResta()
-        {
-            return "-".Equals(caracterActual);
-        }
+        
         private bool esDivision()
         {
             return "/".Equals(caracterActual);
         }
-        private bool esParentecisAbre()
-        {
-            return "(".Equals(caracterActual);
-        }
-        private bool esParentecisCierra()
-        {
-            return ")".Equals(caracterActual);
-        }
-        private bool esIgual()
-        {
-            return "=".Equals(caracterActual);
-        }
 
-        private bool esDiferente()
-        {
-            return "!".Equals(caracterActual);
-        }
         private bool esPunto()
         {
             return ".".Equals(caracterActual);
@@ -139,18 +96,7 @@ namespace CompiladorClase.AnalisisLexico
             return "-".Equals(caracterActual);
         }
 
-        private bool esCaracter()
-        {
-            if(esLetra()|| esDigito()|| esComa()||esSuma()||esResta()||esParentecisAbre()||esParentecisCierra()|| esDiferente() ||caracterActual.Equals(" ") 
-                || caracterActual.Equals("?") || caracterActual.Equals("'") || caracterActual.Equals("&") || caracterActual.Equals(":") || 
-                caracterActual.Equals(";") || caracterActual.Equals(" Revisar  '' ") || caracterActual.Equals("$") || caracterActual.Equals("@") ||
-                caracterActual.Equals("¿")|| caracterActual.Equals("¡"))
-            {
-                return true; 
-            }
-            return false;
-            
-        }
+        
 
 
         public ComponenteLexico devolderSiguienteComponente()
