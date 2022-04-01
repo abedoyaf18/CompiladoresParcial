@@ -171,12 +171,14 @@ namespace Compilador.AnalisisLexico
                     else if (esFinLinea())
                     {
                         estadoactual = 3;
-                        lexema = caracterActual;
+                        caracterActual = " ";
+
                     }
                     else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
                     {
                         estadoactual = 4;
                     }
+                    
                     else
                     {
                         estadoactual = 2;
@@ -185,7 +187,7 @@ namespace Compilador.AnalisisLexico
                 else if (estadoactual == 1)
                 {
                     continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.CARACTER, lexema);
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, lexema.ToUpper(), lexema);
                 }
                 else if (estadoactual == 2)
                 {
@@ -193,12 +195,10 @@ namespace Compilador.AnalisisLexico
                 }
                 else if (estadoactual == 3)
                 {
-                    
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_LINEA, lexema);
                     cargarNuevaLinea();
-                    continuarAnalisis = false;
-
+                    estadoactual = 5;
                 }
+                
                 else if (estadoactual == 4)
                 {
                     continuarAnalisis = false;
@@ -211,14 +211,33 @@ namespace Compilador.AnalisisLexico
                     {
                         estadoactual = 5;
                     }
+                    else if (esFinLinea())
+                    {
+                        estadoactual = 7;
+                        caracterActual = " ";
+                    }
+                    else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
+                    {
+                        estadoactual = 4;
+                    }
                     else
                     {
-                        continuarAnalisis = false;
-                        devolverPuntero();
-                        retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.BLANCO, lexema);
-
+                        estadoactual = 6;
                     }
 
+                }
+                else if (estadoactual == 6)
+                {
+                    continuarAnalisis = false;
+                    devolverPuntero();
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador, CategoriaGramatical.BLANCO, " ");
+
+
+                }
+                else if (estadoactual == 7)
+                {
+                    cargarNuevaLinea();
+                    estadoactual = 5;
                 }
             }
             return retorno;
