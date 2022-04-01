@@ -176,10 +176,12 @@ namespace Compilador.AnalisisLexico
                     else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
                     {
                         estadoactual = 4;
+                        lexema = caracterActual;
                     }
                     else
                     {
                         estadoactual = 2;
+                        lexema = caracterActual;
                     }
                 }
                 else if (estadoactual == 1)
@@ -189,7 +191,8 @@ namespace Compilador.AnalisisLexico
                 }
                 else if (estadoactual == 2)
                 {
-                    throw new Exception("Caracter no valido");
+                    continuarAnalisis = false;
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.NUMERAL, "#");
                 }
                 else if (estadoactual == 3)
                 {
@@ -208,12 +211,10 @@ namespace Compilador.AnalisisLexico
                     if (esBlanco())
                     {
                         estadoactual = 5;
-                        lexema = caracterActual;
                     }
                     else if (esFinLinea())
                     {
                         estadoactual = 7;
-                        lexema = " ";
                     }
                     else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
                     {
