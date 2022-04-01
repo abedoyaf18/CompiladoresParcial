@@ -171,14 +171,12 @@ namespace Compilador.AnalisisLexico
                     else if (esFinLinea())
                     {
                         estadoactual = 3;
-                        caracterActual = " ";
-
+                        lexema = " ";
                     }
                     else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
                     {
                         estadoactual = 4;
                     }
-                    
                     else
                     {
                         estadoactual = 2;
@@ -210,11 +208,12 @@ namespace Compilador.AnalisisLexico
                     if (esBlanco())
                     {
                         estadoactual = 5;
+                        lexema = caracterActual;
                     }
                     else if (esFinLinea())
                     {
                         estadoactual = 7;
-                        caracterActual = " ";
+                        lexema = " ";
                     }
                     else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
                     {
@@ -230,9 +229,7 @@ namespace Compilador.AnalisisLexico
                 {
                     continuarAnalisis = false;
                     devolverPuntero();
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador, CategoriaGramatical.BLANCO, " ");
-
-
+                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.BLANCO, " ");
                 }
                 else if (estadoactual == 7)
                 {
