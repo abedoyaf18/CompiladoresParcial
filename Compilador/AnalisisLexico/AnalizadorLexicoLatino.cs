@@ -187,12 +187,12 @@ namespace Compilador.AnalisisLexico
                 else if (estadoactual == 1)
                 {
                     continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, lexema.ToUpper(), lexema);
+                    retorno = ComponenteLexico.crearLiteral(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, lexema.ToUpper(), lexema);
                 }
                 else if (estadoactual == 2)
                 {
                     continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.NUMERAL, "#");
+                    retorno = ComponenteLexico.crearDummy(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.NUMERAL, "#");
                 }
                 else if (estadoactual == 3)
                 {
@@ -203,7 +203,7 @@ namespace Compilador.AnalisisLexico
                 else if (estadoactual == 4)
                 {
                     continuarAnalisis = false;
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_ARCHIVO, lexema);
+                    retorno = ComponenteLexico.crearPalabraReservada(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.FIN_ARCHIVO, lexema);
                 }
                 else if(estadoactual == 5)
                 {
@@ -230,7 +230,7 @@ namespace Compilador.AnalisisLexico
                 {
                     continuarAnalisis = false;
                     devolverPuntero();
-                    retorno = ComponenteLexico.crear(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.BLANCO, " ");
+                    retorno = ComponenteLexico.crearLiteral(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.BLANCO, " ");
                 }
                 else if (estadoactual == 7)
                 {
@@ -238,6 +238,7 @@ namespace Compilador.AnalisisLexico
                     estadoactual = 5;
                 }
             }
+            Compilador.TablaComponentes.Tabla.obtenerTabla().Agregar(retorno);
             return retorno;
 
         }
