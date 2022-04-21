@@ -214,28 +214,23 @@ namespace Compilador.AnalisisLexico
                     }
                     else if (esFinLinea())
                     {
-                        estadoactual = 7;
+                        estadoactual = 3;
                     }
                     else if (CategoriaGramatical.FIN_ARCHIVO.Equals(caracterActual))
                     {
                         estadoactual = 4;
+                        lexema = caracterActual;
                     }
                     else
                     {
                         estadoactual = 6;
                     }
-
                 }
                 else if (estadoactual == 6)
                 {
                     continuarAnalisis = false;
                     devolverPuntero();
-                    retorno = ComponenteLexico.crearLiteral(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.BLANCO, " ");
-                }
-                else if (estadoactual == 7)
-                {
-                    cargarNuevaLinea();
-                    estadoactual = 5;
+                    retorno = ComponenteLexico.crearLiteral(numeroLineaActual, apuntador - 1, apuntador - 1, CategoriaGramatical.BLANCO, " ");
                 }
             }
             Compilador.TablaComponentes.Tabla.obtenerTabla().Agregar(retorno);

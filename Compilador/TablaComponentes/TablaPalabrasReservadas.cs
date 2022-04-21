@@ -9,7 +9,7 @@ namespace Compilador.TablaComponentes
     {
 
         private static TablaPalabrasReservadas INSTANCIA = new TablaPalabrasReservadas();
-        private static Dictionary<String, ComponenteLexico> TABLA_PALABRAS = new Dictionary<string, ComponenteLexico>();
+        private static Dictionary<string, ComponenteLexico> TABLA_PALABRAS = new Dictionary<string, ComponenteLexico>();
         private TablaPalabrasReservadas()
         {
             AsignarTipo(Trasnversal.TipoComponente.PALABRA_RESERVADA);
