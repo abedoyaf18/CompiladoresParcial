@@ -49,6 +49,9 @@ namespace Compilador
             this.rbtnFile = new System.Windows.Forms.RadioButton();
             this.latinoButton = new System.Windows.Forms.Button();
             this.ListaComponente = new System.Windows.Forms.RadioButton();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dataGridView5 = new System.Windows.Forms.DataGridView();
+            this.rbtnErrores = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -56,6 +59,8 @@ namespace Compilador
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -96,6 +101,7 @@ namespace Compilador
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "texto";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // txtLines
             // 
@@ -258,17 +264,49 @@ namespace Compilador
             this.ListaComponente.AutoSize = true;
             this.ListaComponente.Location = new System.Drawing.Point(311, 21);
             this.ListaComponente.Name = "ListaComponente";
-            this.ListaComponente.Size = new System.Drawing.Size(78, 24);
+            this.ListaComponente.Size = new System.Drawing.Size(65, 24);
             this.ListaComponente.TabIndex = 17;
-            this.ListaComponente.Text = "archivo";
+            this.ListaComponente.Text = "Tabla";
             this.ListaComponente.UseVisualStyleBackColor = true;
             this.ListaComponente.CheckedChanged += new System.EventHandler(this.ListaComponente_CheckedChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.dataGridView5);
+            this.groupBox4.Location = new System.Drawing.Point(3, 51);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(784, 444);
+            this.groupBox4.TabIndex = 28;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Errores";
+            // 
+            // dataGridView5
+            // 
+            this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView5.Location = new System.Drawing.Point(6, 26);
+            this.dataGridView5.Name = "dataGridView5";
+            this.dataGridView5.RowHeadersWidth = 51;
+            this.dataGridView5.RowTemplate.Height = 29;
+            this.dataGridView5.Size = new System.Drawing.Size(771, 412);
+            this.dataGridView5.TabIndex = 0;
+            // 
+            // rbtnErrores
+            // 
+            this.rbtnErrores.AutoSize = true;
+            this.rbtnErrores.Location = new System.Drawing.Point(430, 21);
+            this.rbtnErrores.Name = "rbtnErrores";
+            this.rbtnErrores.Size = new System.Drawing.Size(76, 24);
+            this.rbtnErrores.TabIndex = 29;
+            this.rbtnErrores.Text = "errores";
+            this.rbtnErrores.UseVisualStyleBackColor = true;
+            this.rbtnErrores.CheckedChanged += new System.EventHandler(this.rbtnErrores_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 869);
+            this.Controls.Add(this.rbtnErrores);
             this.Controls.Add(this.ListaComponente);
             this.Controls.Add(this.latinoButton);
             this.Controls.Add(this.rbtnFile);
@@ -278,6 +316,7 @@ namespace Compilador
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox4);
             this.Name = "Form1";
             this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -291,6 +330,8 @@ namespace Compilador
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,6 +362,9 @@ namespace Compilador
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.DataGridView dataGridView5;
+        private System.Windows.Forms.RadioButton rbtnErrores;
     }
 }
 

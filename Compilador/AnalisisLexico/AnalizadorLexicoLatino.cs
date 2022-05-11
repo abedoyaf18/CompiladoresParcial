@@ -1,4 +1,5 @@
-﻿using CompiladorClase.Cache;
+﻿using Compilador.Error;
+using CompiladorClase.Cache;
 using CompiladorClase.Trasnversal;
 using System;
 using System.Collections.Generic;
@@ -193,6 +194,11 @@ namespace Compilador.AnalisisLexico
                 {
                     continuarAnalisis = false;
                     retorno = ComponenteLexico.crearDummy(numeroLineaActual, apuntador - lexema.Length, apuntador - 1, CategoriaGramatical.NUMERAL, "#");
+                    ManejadorError.obtenerManejadorError().agregar(
+                       ComponenteError.crearErrorLexico(retorno.obtenerNumeroLinea(), retorno.obtenerPosicionInicial(), retorno.obtenerPosicionFinal(),
+                       "Se esperaba un caracter conocido pero se recibio " + caracterActual,
+                       "No es posible compilar caracteres no reconocidos",
+                       "Asegurese de ingresar un caracter valido"));
                 }
                 else if (estadoactual == 3)
                 {
