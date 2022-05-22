@@ -184,7 +184,7 @@ namespace Compilador
                     categoria=r.obtenerCategoria(),
                     lexema=r.obtenerLexema()
                 }).ToList();
-            dataGridView1.DataSource = dummyData;
+            dummydgv.DataSource = dummyData;
             var literalData = tabla.ObtenerComponentes(Trasnversal.TipoComponente.LITERAL)
                 .Select(r => new
                 {
@@ -194,7 +194,7 @@ namespace Compilador
                     categoria = r.obtenerCategoria(),
                     lexema = r.obtenerLexema()
                 }).ToList();
-            dataGridView2.DataSource = literalData;
+            literaldgv.DataSource = literalData;
             var reservadaData = tabla.ObtenerComponentes(Trasnversal.TipoComponente.PALABRA_RESERVADA)
                 .Select(r => new
                 {
@@ -204,7 +204,7 @@ namespace Compilador
                     categoria = r.obtenerCategoria(),
                     lexema = r.obtenerLexema()
                 }).ToList();
-            dataGridView3.DataSource = reservadaData;
+            reservadadgv.DataSource = reservadaData;
             var simboloData = tabla.ObtenerComponentes(Trasnversal.TipoComponente.SIMBOLO)
                 .Select(r => new
                 {
@@ -214,7 +214,7 @@ namespace Compilador
                     categoria = r.obtenerCategoria(),
                     lexema = r.obtenerLexema()
                 }).ToList();
-            dataGridView4.DataSource = simboloData;
+            simbolodgv.DataSource = simboloData;
         }
 
         private void listarErrores()
@@ -247,6 +247,43 @@ namespace Compilador
         {
             cerrarVistas();
             groupBox4.Show();
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            hideAllDTV();
+            dummydgv.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            hideAllDTV();
+            literaldgv.Show();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            hideAllDTV();
+            reservadadgv.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            hideAllDTV();
+            simbolodgv.Show();
+        }
+
+        private void hideAllDTV()
+        {
+            dummydgv.Hide();
+            literaldgv.Hide();
+            reservadadgv.Hide();
+            simbolodgv.Hide();
         }
     }
     public static class WinFormsExtensions
