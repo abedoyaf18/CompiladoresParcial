@@ -34,17 +34,18 @@ namespace Compilador
             this.btnFile = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtLines = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.dataGridView4 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.btnProcess = new System.Windows.Forms.Button();
             this.txtConsole = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dummydgv = new System.Windows.Forms.DataGridView();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.reservadadgv = new System.Windows.Forms.DataGridView();
+            this.simbolodgv = new System.Windows.Forms.DataGridView();
+            this.literaldgv = new System.Windows.Forms.DataGridView();
+            this.btnProcess = new System.Windows.Forms.Button();
             this.rbtnText = new System.Windows.Forms.RadioButton();
             this.rbtnFile = new System.Windows.Forms.RadioButton();
             this.latinoButton = new System.Windows.Forms.Button();
@@ -52,41 +53,49 @@ namespace Compilador
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
             this.rbtnErrores = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dummydgv)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.reservadadgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simbolodgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.literaldgv)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.btnFile);
-            this.groupBox1.Location = new System.Drawing.Point(11, 51);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 54);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 423);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(1000, 439);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "archivo";
+            this.groupBox1.Text = "Archivo";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(184, 92);
+            this.label1.Location = new System.Drawing.Point(230, 115);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 20);
+            this.label1.Size = new System.Drawing.Size(0, 25);
             this.label1.TabIndex = 1;
             // 
             // btnFile
             // 
-            this.btnFile.Location = new System.Drawing.Point(579, 88);
+            this.btnFile.Location = new System.Drawing.Point(724, 110);
+            this.btnFile.Margin = new System.Windows.Forms.Padding(4);
             this.btnFile.Name = "btnFile";
-            this.btnFile.Size = new System.Drawing.Size(153, 29);
+            this.btnFile.Size = new System.Drawing.Size(191, 36);
             this.btnFile.TabIndex = 0;
             this.btnFile.Text = "Seleccionar archivo";
             this.btnFile.UseVisualStyleBackColor = true;
@@ -94,177 +103,227 @@ namespace Compilador
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox2.Controls.Add(this.txtLines);
-            this.groupBox2.Location = new System.Drawing.Point(4, 49);
+            this.groupBox2.Controls.Add(this.txtConsole);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 54);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(783, 431);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(1000, 439);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "texto";
+            this.groupBox2.Text = "Texto";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // txtLines
             // 
-            this.txtLines.Location = new System.Drawing.Point(29, 37);
+            this.txtLines.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txtLines.Location = new System.Drawing.Point(4, 28);
+            this.txtLines.Margin = new System.Windows.Forms.Padding(4);
             this.txtLines.Multiline = true;
             this.txtLines.Name = "txtLines";
-            this.txtLines.Size = new System.Drawing.Size(729, 339);
+            this.txtLines.Size = new System.Drawing.Size(484, 407);
             this.txtLines.TabIndex = 1;
             this.txtLines.TextChanged += new System.EventHandler(this.txtLines_TextChanged);
             // 
+            // txtConsole
+            // 
+            this.txtConsole.Dock = System.Windows.Forms.DockStyle.Right;
+            this.txtConsole.Location = new System.Drawing.Point(512, 28);
+            this.txtConsole.Margin = new System.Windows.Forms.Padding(4);
+            this.txtConsole.Multiline = true;
+            this.txtConsole.Name = "txtConsole";
+            this.txtConsole.ReadOnly = true;
+            this.txtConsole.Size = new System.Drawing.Size(484, 407);
+            this.txtConsole.TabIndex = 13;
+            this.txtConsole.TextChanged += new System.EventHandler(this.txtConsole_TextChanged);
+            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.dataGridView3);
-            this.groupBox3.Controls.Add(this.dataGridView4);
-            this.groupBox3.Controls.Add(this.dataGridView2);
-            this.groupBox3.Controls.Add(this.dataGridView1);
-            this.groupBox3.Location = new System.Drawing.Point(5, 44);
+            this.groupBox3.Controls.Add(this.dummydgv);
+            this.groupBox3.Controls.Add(this.panel2);
+            this.groupBox3.Controls.Add(this.reservadadgv);
+            this.groupBox3.Controls.Add(this.simbolodgv);
+            this.groupBox3.Controls.Add(this.literaldgv);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 54);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(783, 457);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(1000, 439);
             this.groupBox3.TabIndex = 17;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Tablas";
             // 
-            // label5
+            // dummydgv
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(338, 323);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 20);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Simbolo";
+            this.dummydgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dummydgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dummydgv.Location = new System.Drawing.Point(167, 28);
+            this.dummydgv.Margin = new System.Windows.Forms.Padding(4);
+            this.dummydgv.Name = "dummydgv";
+            this.dummydgv.RowHeadersWidth = 51;
+            this.dummydgv.RowTemplate.Height = 29;
+            this.dummydgv.Size = new System.Drawing.Size(829, 407);
+            this.dummydgv.TabIndex = 0;
             // 
-            // label4
+            // panel2
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(306, 220);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(126, 20);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Palabra reservada";
+            this.panel2.Controls.Add(this.button4);
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(4, 28);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(4);
+            this.panel2.Size = new System.Drawing.Size(163, 407);
+            this.panel2.TabIndex = 8;
             // 
-            // label3
+            // button4
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(342, 110);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 20);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Litera";
+            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button4.Location = new System.Drawing.Point(4, 106);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(155, 34);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "Símbolo";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // label2
+            // button3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(342, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 20);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Dummy";
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.Location = new System.Drawing.Point(4, 72);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(155, 34);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "Palabra Reservada";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
-            // dataGridView3
+            // button2
             // 
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(13, 233);
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.RowHeadersWidth = 51;
-            this.dataGridView3.RowTemplate.Height = 29;
-            this.dataGridView3.Size = new System.Drawing.Size(744, 96);
-            this.dataGridView3.TabIndex = 3;
+            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button2.Location = new System.Drawing.Point(4, 38);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(155, 34);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Literal";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // dataGridView4
+            // button1
             // 
-            this.dataGridView4.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView4.Location = new System.Drawing.Point(12, 335);
-            this.dataGridView4.Name = "dataGridView4";
-            this.dataGridView4.RowHeadersWidth = 51;
-            this.dataGridView4.RowTemplate.Height = 29;
-            this.dataGridView4.Size = new System.Drawing.Size(744, 95);
-            this.dataGridView4.TabIndex = 2;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button1.Location = new System.Drawing.Point(4, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(155, 34);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Dummy";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // dataGridView2
+            // reservadadgv
             // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(13, 133);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 29;
-            this.dataGridView2.Size = new System.Drawing.Size(744, 94);
-            this.dataGridView2.TabIndex = 1;
+            this.reservadadgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.reservadadgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reservadadgv.Location = new System.Drawing.Point(4, 28);
+            this.reservadadgv.Margin = new System.Windows.Forms.Padding(4);
+            this.reservadadgv.Name = "reservadadgv";
+            this.reservadadgv.RowHeadersWidth = 51;
+            this.reservadadgv.RowTemplate.Height = 29;
+            this.reservadadgv.Size = new System.Drawing.Size(992, 407);
+            this.reservadadgv.TabIndex = 3;
             // 
-            // dataGridView1
+            // simbolodgv
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(13, 31);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 29;
-            this.dataGridView1.Size = new System.Drawing.Size(744, 93);
-            this.dataGridView1.TabIndex = 0;
+            this.simbolodgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.simbolodgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.simbolodgv.Location = new System.Drawing.Point(4, 28);
+            this.simbolodgv.Margin = new System.Windows.Forms.Padding(4);
+            this.simbolodgv.Name = "simbolodgv";
+            this.simbolodgv.RowHeadersWidth = 51;
+            this.simbolodgv.RowTemplate.Height = 29;
+            this.simbolodgv.Size = new System.Drawing.Size(992, 407);
+            this.simbolodgv.TabIndex = 2;
+            // 
+            // literaldgv
+            // 
+            this.literaldgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.literaldgv.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.literaldgv.Location = new System.Drawing.Point(4, 28);
+            this.literaldgv.Margin = new System.Windows.Forms.Padding(4);
+            this.literaldgv.Name = "literaldgv";
+            this.literaldgv.RowHeadersWidth = 51;
+            this.literaldgv.RowTemplate.Height = 29;
+            this.literaldgv.Size = new System.Drawing.Size(992, 407);
+            this.literaldgv.TabIndex = 1;
+            this.literaldgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // btnProcess
             // 
-            this.btnProcess.Location = new System.Drawing.Point(11, 522);
+            this.btnProcess.Location = new System.Drawing.Point(472, 9);
+            this.btnProcess.Margin = new System.Windows.Forms.Padding(4);
             this.btnProcess.Name = "btnProcess";
-            this.btnProcess.Size = new System.Drawing.Size(94, 29);
+            this.btnProcess.Size = new System.Drawing.Size(118, 36);
             this.btnProcess.TabIndex = 2;
-            this.btnProcess.Text = "morse";
+            this.btnProcess.Text = "Morse";
             this.btnProcess.UseVisualStyleBackColor = true;
             this.btnProcess.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // txtConsole
-            // 
-            this.txtConsole.Location = new System.Drawing.Point(11, 572);
-            this.txtConsole.Multiline = true;
-            this.txtConsole.Name = "txtConsole";
-            this.txtConsole.ReadOnly = true;
-            this.txtConsole.Size = new System.Drawing.Size(777, 287);
-            this.txtConsole.TabIndex = 13;
-            this.txtConsole.TextChanged += new System.EventHandler(this.txtConsole_TextChanged);
             // 
             // rbtnText
             // 
             this.rbtnText.AutoSize = true;
             this.rbtnText.Checked = true;
-            this.rbtnText.Location = new System.Drawing.Point(18, 21);
+            this.rbtnText.Dock = System.Windows.Forms.DockStyle.Left;
+            this.rbtnText.Location = new System.Drawing.Point(0, 0);
+            this.rbtnText.Margin = new System.Windows.Forms.Padding(4);
             this.rbtnText.Name = "rbtnText";
-            this.rbtnText.Size = new System.Drawing.Size(64, 24);
+            this.rbtnText.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.rbtnText.Size = new System.Drawing.Size(94, 54);
             this.rbtnText.TabIndex = 14;
             this.rbtnText.TabStop = true;
-            this.rbtnText.Text = "texto";
+            this.rbtnText.Text = "Texto";
             this.rbtnText.UseVisualStyleBackColor = true;
             this.rbtnText.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // rbtnFile
             // 
             this.rbtnFile.AutoSize = true;
-            this.rbtnFile.Location = new System.Drawing.Point(163, 20);
+            this.rbtnFile.Dock = System.Windows.Forms.DockStyle.Left;
+            this.rbtnFile.Location = new System.Drawing.Point(94, 0);
+            this.rbtnFile.Margin = new System.Windows.Forms.Padding(4);
             this.rbtnFile.Name = "rbtnFile";
-            this.rbtnFile.Size = new System.Drawing.Size(78, 24);
+            this.rbtnFile.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.rbtnFile.Size = new System.Drawing.Size(113, 54);
             this.rbtnFile.TabIndex = 15;
-            this.rbtnFile.Text = "archivo";
+            this.rbtnFile.Text = "Archivo";
             this.rbtnFile.UseVisualStyleBackColor = true;
             this.rbtnFile.CheckedChanged += new System.EventHandler(this.rbtnFile_CheckedChanged);
             // 
             // latinoButton
             // 
-            this.latinoButton.Location = new System.Drawing.Point(277, 522);
+            this.latinoButton.Location = new System.Drawing.Point(615, 9);
+            this.latinoButton.Margin = new System.Windows.Forms.Padding(4);
             this.latinoButton.Name = "latinoButton";
-            this.latinoButton.Size = new System.Drawing.Size(94, 29);
+            this.latinoButton.Size = new System.Drawing.Size(118, 36);
             this.latinoButton.TabIndex = 16;
-            this.latinoButton.Text = "latino";
+            this.latinoButton.Text = "Latino";
             this.latinoButton.UseVisualStyleBackColor = true;
             this.latinoButton.Click += new System.EventHandler(this.latinoButton_Click);
             // 
             // ListaComponente
             // 
             this.ListaComponente.AutoSize = true;
-            this.ListaComponente.Location = new System.Drawing.Point(311, 21);
+            this.ListaComponente.Dock = System.Windows.Forms.DockStyle.Left;
+            this.ListaComponente.Location = new System.Drawing.Point(207, 0);
+            this.ListaComponente.Margin = new System.Windows.Forms.Padding(4);
             this.ListaComponente.Name = "ListaComponente";
-            this.ListaComponente.Size = new System.Drawing.Size(65, 24);
+            this.ListaComponente.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.ListaComponente.Size = new System.Drawing.Size(93, 54);
             this.ListaComponente.TabIndex = 17;
             this.ListaComponente.Text = "Tabla";
             this.ListaComponente.UseVisualStyleBackColor = true;
@@ -273,9 +332,12 @@ namespace Compilador
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dataGridView5);
-            this.groupBox4.Location = new System.Drawing.Point(3, 51);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(0, 54);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(784, 444);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox4.Size = new System.Drawing.Size(1000, 439);
             this.groupBox4.TabIndex = 28;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Errores";
@@ -283,40 +345,53 @@ namespace Compilador
             // dataGridView5
             // 
             this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView5.Location = new System.Drawing.Point(6, 26);
+            this.dataGridView5.Location = new System.Drawing.Point(8, 32);
+            this.dataGridView5.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView5.Name = "dataGridView5";
             this.dataGridView5.RowHeadersWidth = 51;
             this.dataGridView5.RowTemplate.Height = 29;
-            this.dataGridView5.Size = new System.Drawing.Size(771, 412);
+            this.dataGridView5.Size = new System.Drawing.Size(964, 515);
             this.dataGridView5.TabIndex = 0;
             // 
             // rbtnErrores
             // 
             this.rbtnErrores.AutoSize = true;
-            this.rbtnErrores.Location = new System.Drawing.Point(430, 21);
+            this.rbtnErrores.Dock = System.Windows.Forms.DockStyle.Left;
+            this.rbtnErrores.Location = new System.Drawing.Point(300, 0);
+            this.rbtnErrores.Margin = new System.Windows.Forms.Padding(4);
             this.rbtnErrores.Name = "rbtnErrores";
-            this.rbtnErrores.Size = new System.Drawing.Size(76, 24);
+            this.rbtnErrores.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
+            this.rbtnErrores.Size = new System.Drawing.Size(108, 54);
             this.rbtnErrores.TabIndex = 29;
-            this.rbtnErrores.Text = "errores";
+            this.rbtnErrores.Text = "Errores";
             this.rbtnErrores.UseVisualStyleBackColor = true;
             this.rbtnErrores.CheckedChanged += new System.EventHandler(this.rbtnErrores_CheckedChanged);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.latinoButton);
+            this.panel1.Controls.Add(this.btnProcess);
+            this.panel1.Controls.Add(this.rbtnErrores);
+            this.panel1.Controls.Add(this.ListaComponente);
+            this.panel1.Controls.Add(this.rbtnFile);
+            this.panel1.Controls.Add(this.rbtnText);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1000, 54);
+            this.panel1.TabIndex = 30;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 869);
-            this.Controls.Add(this.rbtnErrores);
-            this.Controls.Add(this.ListaComponente);
-            this.Controls.Add(this.latinoButton);
-            this.Controls.Add(this.rbtnFile);
-            this.Controls.Add(this.rbtnText);
-            this.Controls.Add(this.btnProcess);
-            this.Controls.Add(this.txtConsole);
+            this.ClientSize = new System.Drawing.Size(1000, 493);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -325,15 +400,16 @@ namespace Compilador
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dummydgv)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.reservadadgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.simbolodgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.literaldgv)).EndInit();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -354,17 +430,19 @@ namespace Compilador
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.DataGridView dataGridView4;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView reservadadgv;
+        private System.Windows.Forms.DataGridView simbolodgv;
+        private System.Windows.Forms.DataGridView literaldgv;
+        private System.Windows.Forms.DataGridView dummydgv;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.DataGridView dataGridView5;
         private System.Windows.Forms.RadioButton rbtnErrores;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
 
