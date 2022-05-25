@@ -40,6 +40,7 @@ namespace Compilador.AnalisisSintactico
         public string analizar()
         {
             pedirComponente();
+            pila.Push("");
             codigo(0);
 
             if (ManejadorError.obtenerManejadorError().hayErrores())
@@ -84,6 +85,9 @@ namespace Compilador.AnalisisSintactico
                 simbolo(numeroLlamado + 1);
                 pedirComponente();
                 codigo(numeroLlamado + 1);
+                string derecha = pila.Pop();
+                string izquierda = pila.Pop();
+                pila.Push(izquierda + derecha);
             }
             formarSalida(numeroLlamado, "</codigo>");
         }
@@ -93,251 +97,251 @@ namespace Compilador.AnalisisSintactico
             formarEntrada(numeroLlamado, "<simbolo>");
             if (CategoriaGramatical.LETRA_A.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("a");
+                pila.Push("a");
             }
             else if (CategoriaGramatical.LETRA_B.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("b");
+                pila.Push("b");
             }
             else if (CategoriaGramatical.LETRA_C.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("c");
+                pila.Push("c");
             }
             else if (CategoriaGramatical.LETRA_D.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("d");
+                pila.Push("d");
             }
             else if (CategoriaGramatical.LETRA_E.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("e");
+                pila.Push("e");
             }
             else if (CategoriaGramatical.LETRA_F.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("f");
+                pila.Push("f");
             }
             else if (CategoriaGramatical.LETRA_G.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("g");
+                pila.Push("g");
             }
             else if (CategoriaGramatical.LETRA_H.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("h");
+                pila.Push("h");
             }
             else if (CategoriaGramatical.LETRA_I.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("i");
+                pila.Push("i");
             }
             else if (CategoriaGramatical.LETRA_J.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("j");
+                pila.Push("j");
             }
             else if (CategoriaGramatical.LETRA_K.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("k");
+                pila.Push("k");
             }
             else if (CategoriaGramatical.LETRA_L.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("l");
+                pila.Push("l");
             }
             else if (CategoriaGramatical.LETRA_M.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("m");
+                pila.Push("m");
             }
             else if (CategoriaGramatical.LETRA_N.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("n");
+                pila.Push("n");
             }
             else if (CategoriaGramatical.LETRA_ENHE.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("ñ");
+                pila.Push("ñ");
             }
             else if (CategoriaGramatical.LETRA_O.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("o");
+                pila.Push("o");
             }
             else if (CategoriaGramatical.LETRA_P.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("p");
+                pila.Push("p");
             }
             else if (CategoriaGramatical.LETRA_Q.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("q");
+                pila.Push("q");
             }
             else if (CategoriaGramatical.LETRA_R.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("r");
+                pila.Push("r");
             }
             else if (CategoriaGramatical.LETRA_S.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("s");
+                pila.Push("s");
             }
             else if (CategoriaGramatical.LETRA_T.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("t");
+                pila.Push("t");
             }
             else if (CategoriaGramatical.LETRA_U.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("u");
+                pila.Push("u");
             }
             else if (CategoriaGramatical.LETRA_V.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("v");
+                pila.Push("v");
             }
             else if (CategoriaGramatical.LETRA_W.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("w");
+                pila.Push("w");
             }
             else if (CategoriaGramatical.LETRA_X.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("x");
+                pila.Push("x");
             }
             else if (CategoriaGramatical.LETRA_Y.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("y");
+                pila.Push("y");
             }
             else if (CategoriaGramatical.LETRA_Z.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("z");
+                pila.Push("z");
             }
             else if (CategoriaGramatical.NUMERO_0.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("0");
+                pila.Push("0");
             }
             else if (CategoriaGramatical.NUMERO_1.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("1");
+                pila.Push("1");
             }
             else if (CategoriaGramatical.NUMERO_2.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("2");
+                pila.Push("2");
             }
             else if (CategoriaGramatical.NUMERO_3.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("3");
+                pila.Push("3");
             }
             else if (CategoriaGramatical.NUMERO_4.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("4");
+                pila.Push("4");
             }
             else if (CategoriaGramatical.NUMERO_5.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("5");
+                pila.Push("5");
             }
             else if (CategoriaGramatical.NUMERO_6.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("6");
+                pila.Push("6");
             }
             else if (CategoriaGramatical.NUMERO_7.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("7");
+                pila.Push("7");
             }
             else if (CategoriaGramatical.NUMERO_8.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("8");
+                pila.Push("8");
             }
             else if (CategoriaGramatical.NUMERO_9.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("9");
+                pila.Push("9");
             }
             else if (CategoriaGramatical.PUNTO.Equals(componente.obtenerCategoria()))
             {
-                sb.Append(".");
+                pila.Push(".");
             }
             else if (CategoriaGramatical.COMA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append(",");
+                pila.Push(",");
             }
             else if (CategoriaGramatical.SIGNO_PEGUNTA_CIERRA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("?");
+                pila.Push("?");
             }
             else if (CategoriaGramatical.COMILLA_SIMPLE.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("'");
+                pila.Push("'");
             }
             else if (CategoriaGramatical.ADMIRACION_CIERRA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("!");
+                pila.Push("!");
             }
             else if (CategoriaGramatical.SLASH.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("/");
+                pila.Push("/");
             }
             else if (CategoriaGramatical.PARENTESIS_ABRE.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("(");
+                pila.Push("(");
             }
             else if (CategoriaGramatical.PARENTESIS_CIERRA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append(")");
+                pila.Push(")");
             }
             else if (CategoriaGramatical.AMPERSAN.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("&");
+                pila.Push("&");
             }
             else if (CategoriaGramatical.DOS_PUNTOS.Equals(componente.obtenerCategoria()))
             {
-                sb.Append(":");
+                pila.Push(":");
             }
             else if (CategoriaGramatical.PUNTO_Y_COMA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append(";");
+                pila.Push(";");
             }
             else if (CategoriaGramatical.IGUAL.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("=");
+                pila.Push("=");
             }
             else if (CategoriaGramatical.SUMA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("+");
+                pila.Push("+");
             }
             else if (CategoriaGramatical.RESTA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("-");
+                pila.Push("-");
             }
             else if (CategoriaGramatical.GUION_PISO.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("_");
+                pila.Push("_");
             }
             else if (CategoriaGramatical.DOBLE_COMILLA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("\"");
+                pila.Push("\"");
             }
             else if (CategoriaGramatical.SIGNO_PESOS.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("$");
+                pila.Push("$");
             }
             else if (CategoriaGramatical.ARROBA.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("@");
+                pila.Push("@");
             }
             else if (CategoriaGramatical.SIGNO_PEGUNTA_ABRE.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("¿");
+                pila.Push("¿");
             }
             else if (CategoriaGramatical.ADMIRACION_ABRE.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("¡");
+                pila.Push("¡");
             }
             else if (CategoriaGramatical.LETRA_CON_TILDE_A.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("á");
+                pila.Push("á");
             }
             else if (CategoriaGramatical.LETRA_CON_TILDE_E.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("é");
+                pila.Push("é");
             }
             else if (CategoriaGramatical.LETRA_CON_TILDE_O.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("ó");
+                pila.Push("ó");
             }
             else if (CategoriaGramatical.NUMERAL.Equals(componente.obtenerCategoria()))
             {
-                sb.Append("#");
+                pila.Push("#");
             }
             else if (CategoriaGramatical.BLANCO.Equals(componente.obtenerCategoria()))
             {
-                sb.Append(' ');
+                pila.Push(" ");
             }
             else
             {
