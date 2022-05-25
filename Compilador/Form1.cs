@@ -1,4 +1,5 @@
 ﻿using Compilador.AnalisisLexico;
+using Compilador.AnalisisSintactico;
 using Compilador.Error;
 using Compilador.TablaComponentes;
 using CompiladorClase.AnalisisLexico;
@@ -77,14 +78,10 @@ namespace Compilador
             {
                 txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
             }
-            AnalizadorLexico analisador = AnalizadorLexico.crear();
-            ComponenteLexico componente = analisador.devolderSiguienteComponente();
             try
             {
-                while (!CategoriaGramatical.FIN_ARCHIVO.Equals(componente.obtenerCategoria()))
-                {
-                    componente = analisador.devolderSiguienteComponente();
-                }
+                AnalizadorSintactico anaSin = new AnalizadorSintactico();
+                MessageBox.Show(anaSin.analizar());
             }
             catch (Exception error)
             {
@@ -106,17 +103,11 @@ namespace Compilador
             {
                 txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
             }
-            AnalizadorLexicoLatino analisador = AnalizadorLexicoLatino.crear();
-            ComponenteLexico componente = analisador.devolderSiguienteComponente();
 
             try
             {
-               while (!CategoriaGramatical.FIN_ARCHIVO.Equals(componente.obtenerCategoria()))
-               {
-
-               componente = analisador.devolderSiguienteComponente();
-               }
-
+                AnalizadorSintacticoLatino anaSinLa = new AnalizadorSintacticoLatino();
+                MessageBox.Show(anaSinLa.analizar());
             }
             catch (Exception error)
             {

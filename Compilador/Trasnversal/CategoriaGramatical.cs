@@ -8,9 +8,7 @@ namespace CompiladorClase.Trasnversal
     {
         public static string FIN_ARCHIVO = "@EOF@";
         public static string FIN_LINEA = "@FL@";
-        public static string CODIGO = "CODIGO";
         public static string NUMERAL = "#";
-        public static string CARACTER = "CARACTER";
         public static string BLANCO = "BLANCO";
         public static string LETRA_A = "A";
         public static string LETRA_B = "B";
@@ -41,7 +39,6 @@ namespace CompiladorClase.Trasnversal
         public static string LETRA_Z = "Z";
         public static string LETRA_CON_TILDE_A = "Á";
         public static string LETRA_CON_TILDE_E = "É";
-        public static string LETRA_CON_TILDE_N = "Ñ";
         public static string LETRA_CON_TILDE_O = "Ó";
         public static string NUMERO_0 = "0";
         public static string NUMERO_1 = "1";
