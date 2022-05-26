@@ -1,5 +1,7 @@
 ﻿using Compilador.AnalisisLexico;
 using Compilador.Error;
+using Compilador.TablaComponentes;
+using Compilador.Trasnversal;
 using CompiladorClase.Trasnversal;
 using System;
 using System.Collections.Generic;
@@ -39,11 +41,12 @@ namespace Compilador.AnalisisSintactico
 
         public string analizar()
         {
+            ManejadorError.obtenerManejadorError().reiniciar();
             pedirComponente();
             pila.Push("");
             latino(0);
 
-            if (ManejadorError.obtenerManejadorError().hayErrores())
+            if (ManejadorError.obtenerManejadorError().hayErrores() && Tabla.obtenerTabla().ObtenerComponentes(TipoComponente.DUMMY).Count == 0)
             {
                 MessageBox.Show("Hay errores de compilacion. Por favor verifique los reportes de error respectivos!!!");
             }
@@ -52,7 +55,14 @@ namespace Compilador.AnalisisSintactico
             {
                 if (pila.Count == 1)
                 {
-                    MessageBox.Show("El programa se cuentra bien escrito. el resultado de la traduccion es: " + pila.Pop());
+                    if (Tabla.obtenerTabla().ObtenerComponentes(TipoComponente.DUMMY).Count > 0)
+                    {
+                        MessageBox.Show("El programa cuenta con errores dummy. el resultado de la traduccion es: " + pila.Pop());
+                    }
+                    else
+                    {
+                        MessageBox.Show("El programa se encuentra bien escrito. el resultado de la traduccion es: " + pila.Pop());
+                    }
                 }
                 else if (pila.Count > 1)
                 {
