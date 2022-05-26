@@ -57,13 +57,13 @@ namespace CompiladorClase.Trasnversal
         public static string ADMIRACION_CIERRA = "!";
         public static string ADMIRACION_ABRE = "¡";
         public static string SLASH = "/";
-        public static string PARENTESIS_ABRE = "PARENTESIS ABRE";
-        public static string PARENTESIS_CIERRA = "PARENTESIS CIERRA";
+        public static string PARENTESIS_ABRE = "(";
+        public static string PARENTESIS_CIERRA = ")";
         public static string AMPERSAN = "&";
         public static string DOS_PUNTOS = ":";
         public static string PUNTO_Y_COMA = ";";
         public static string GUION_PISO = "_";
-        public static string DOBLE_COMILLA = "DOBLE_COMILLA";
+        public static string DOBLE_COMILLA = "\"";
         public static string ARROBA = "@";
         public static string SIGNO_PESOS = "$";
         public static string SIGNO_PEGUNTA_ABRE = "¿";

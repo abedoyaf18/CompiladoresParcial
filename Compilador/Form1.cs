@@ -76,7 +76,10 @@ namespace Compilador
             procesarTexto();
             foreach (Linea linea in cache.obtenerLineas())
             {
-                txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
+                if (!linea.obtenerContenido().Equals(CategoriaGramatical.FIN_ARCHIVO))
+                {
+                    txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
+                }
             }
             try
             {
@@ -101,7 +104,10 @@ namespace Compilador
             procesarTexto();
             foreach (Linea linea in cache.obtenerLineas())
             {
-                txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
+                if (!linea.obtenerContenido().Equals(CategoriaGramatical.FIN_ARCHIVO))
+                {
+                    txtConsole.AddLine(linea.obtenerNumeroLinea() + ">> " + linea.obtenerContenido());
+                }
             }
 
             try
